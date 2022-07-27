@@ -12,13 +12,19 @@ import {
 import UserContext from "../context/UserContext";
 
 const DependentPopup = ({ closePopup }) => {
-	const [dependent, setDependent] = useState({});
+	const [dependent, setDependent] = useState({
+		fName: null,
+		lName: "",
+		gender: "",
+		age: "",
+		illness: "",
+	});
 	const { addDependent, currentDependent, editDependent } =
 		useContext(UserContext);
 
 	useEffect(() => {
 		if (currentDependent) {
-			setDependent(currentDependent[0]);
+			setDependent(currentDependent);
 		}
 	}, [currentDependent]);
 
@@ -30,7 +36,6 @@ const DependentPopup = ({ closePopup }) => {
 	};
 
 	const handleAddDependent = () => {
-		console.log(dependent);
 		addDependent(dependent);
 	};
 
@@ -50,7 +55,7 @@ const DependentPopup = ({ closePopup }) => {
 						textAlign="center"
 						sx={{ marginBottom: "20px" }}
 					>
-						{dependent ? "Edit" : "Add"} Dependant Details
+						{currentDependent ? "Edit" : "Add"} Dependant Details
 					</Typography>
 					<Grid container justifyContent="space-between">
 						<Grid item>
@@ -165,13 +170,14 @@ const DependentPopup = ({ closePopup }) => {
 
 					<Grid container style={{ width: "100%" }}>
 						<Grid item style={{ width: "100%" }}>
-							{dependent ? (
+							{currentDependent ? (
 								<Button
 									variant="contained"
 									sx={{ width: "100%" }}
 									onClick={() => {
 										editDependent(dependent.id, dependent);
 										closePopup();
+										setDependent({});
 									}}
 								>
 									save Dependant
@@ -183,6 +189,13 @@ const DependentPopup = ({ closePopup }) => {
 									onClick={() => {
 										handleAddDependent();
 										closePopup();
+										setDependent({
+											fName: null,
+											lName: "",
+											gender: "",
+											age: "",
+											illness: "",
+										});
 									}}
 								>
 									Add Dependant

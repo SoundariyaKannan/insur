@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 const Dashboard = () => {
-	const { user, dependents } = useContext(UserContext);
+	const { user, dependents, reset } = useContext(UserContext);
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -21,6 +21,7 @@ const Dashboard = () => {
 	};
 
 	const handleClose = () => {
+		reset();
 		setOpen(false);
 	};
 	return (

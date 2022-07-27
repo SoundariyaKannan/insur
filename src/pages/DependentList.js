@@ -32,7 +32,6 @@ const DependentList = ({ dependents, openPopup }) => {
 					<TableBody>
 						{dependents &&
 							dependents.map((dependent) => {
-								console.log("List displaying", dependent);
 								return (
 									<TableRow key={dependent.fName}>
 										<TableCell>{dependent.fName}</TableCell>

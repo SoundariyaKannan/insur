@@ -6,16 +6,16 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
 	const [user, setUser] = useState();
 	const [dependents, setDependents] = useState([]);
-	const [currentDependent, setCurrentDependent] = useState({});
+	const [currentDependent, setCurrentDependent] = useState();
 
 	const addUser = (user) => {
-		console.log(user);
 		setUser(user);
 	};
 
 	const addDependent = (dependent) => {
+		setCurrentDependent("");
 		dependent.id = uuid();
-		console.log(dependent);
+
 		setDependents([...dependents, dependent]);
 	};
 
@@ -25,7 +25,9 @@ export const UserProvider = ({ children }) => {
 	};
 
 	const getCurrentDependent = (id) => {
-		setCurrentDependent(dependents.filter((dependent) => dependent.id === id));
+		setCurrentDependent(
+			dependents.filter((dependent) => dependent.id === id)[0]
+		);
 	};
 
 	const editDependent = (id, dependent) => {
@@ -38,6 +40,11 @@ export const UserProvider = ({ children }) => {
 				dependent.id === id ? { ...updatedDependent } : dependent
 			)
 		);
+		setCurrentDependent("");
+	};
+
+	const reset = () => {
+		setCurrentDependent("");
 	};
 
 	return (
@@ -51,6 +58,7 @@ export const UserProvider = ({ children }) => {
 				removeDependent,
 				getCurrentDependent,
 				editDependent,
+				reset,
 			}}
 		>
 			{children}
