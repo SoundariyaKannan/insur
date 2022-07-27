@@ -13,7 +13,7 @@ import UserContext from "../context/UserContext";
 
 const DependentPopup = ({ closePopup }) => {
 	const [dependent, setDependent] = useState({
-		fName: null,
+		fName: "",
 		lName: "",
 		gender: "",
 		age: "",
